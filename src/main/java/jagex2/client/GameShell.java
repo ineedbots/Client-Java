@@ -420,7 +420,10 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		nextMouseClickX = var2;
 		nextMouseClickY = var3;
 		nextMouseClickTime = System.currentTimeMillis();
-		if (arg0.isMetaDown()) {
+		// Use the physical button when available. isMetaDown() alone can miss
+		// right clicks on some AWT platforms; keep it as a fallback for
+		// platforms that map a secondary click to the Meta modifier.
+		if (arg0.getButton() == MouseEvent.BUTTON3 || arg0.isMetaDown()) {
 			nextMouseClickButton = 2;
 			mouseButton = 2;
 		} else {
